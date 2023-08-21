@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
-import chrome from 'chrome-aws-lambda';
 import puppeteer from 'puppeteer-core';
 import path from 'path';
 import { FileStorageService } from '@/server/modules/file-storage-service/impl';
@@ -23,13 +22,7 @@ export default async function handler(
 ) {
   let { html, userId, pdfName } = RequestBodySchema.parse(req.body);
 
-  const options = {
-    args: chrome.args,
-    executablePath: await chrome.executablePath,
-    headless: chrome.headless,
-  };
-
-  const browser = await puppeteer.launch(options);
+  const browser = await puppeteer.launch();
 
   const page = await browser.newPage();
   await page.setContent(html);
