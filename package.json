@@ -23,5 +23,8 @@
     "react-dom": "18.2.0",
     "typescript": "5.1.6",
     "zod": "^3.22.2"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
