@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
 import chrome from 'chrome-aws-lambda';
-import playwright from 'playwright-core';
+import puppeteer from 'puppeteer-core';
 import path from 'path';
 import { FileStorageService } from '@/server/modules/file-storage-service/impl';
 
@@ -39,7 +39,7 @@ export default async function handler(
             : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
       };
 
-  const browser = await playwright.chromium.launch(options);
+  const browser = await puppeteer.launch(options);
 
   const page = await browser.newPage();
   await page.setContent(html);
