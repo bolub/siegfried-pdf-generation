@@ -32,21 +32,23 @@ export default async function handler(
   const page = await browser.newPage();
   await page.setContent(html);
 
-  const pdfPath = path.join(process.cwd(), 'public', `testt.pdf`);
-  await page.pdf({ path: pdfPath });
+  const pdfPath = `${pdfName}.pdf`;
+
+  const pdfBuffer = await page.pdf({ path: pdfPath });
+  const pdfBlob = new Blob([pdfBuffer], { type: 'application/pdf' });
 
   await browser.close();
 
   // try to send to supabase
   const supabasePath = `${userId}/${pdfName}_${Date.now()}`;
 
-  const blob = await fetch(pdfPath).then((r) => r.blob());
+  // const blob = await fetch(pdfPath).then((r) => r.blob());
 
   try {
     const resp = await FileStorageService.upload({
       bucket: process.env.SUPABASE_CONTRACTS_BUCKET as string,
       path: supabasePath,
-      file: blob,
+      file: pdfBlob,
       opts: {
         contentType: 'application/pdf',
       },
