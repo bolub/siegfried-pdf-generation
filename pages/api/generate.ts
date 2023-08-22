@@ -4,7 +4,7 @@ import { z } from 'zod';
 import puppeteer from 'puppeteer-core';
 import path from 'path';
 import { FileStorageService } from '@/server/modules/file-storage-service/impl';
-import chrome from 'chrome-aws-lambda';
+import chromium from '@sparticuz/chromium';
 
 type Data = {
   message: string;
@@ -23,12 +23,10 @@ export default async function handler(
 ) {
   let { html, userId, pdfName } = RequestBodySchema.parse(req.body);
 
-  const executablePath = await chrome.executablePath;
-
   const browser = await puppeteer.launch({
-    args: await chrome.args,
-    executablePath: executablePath || process.env.PUPPETEER_EXECUTABLE_PATH,
-    headless: true,
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(),
   });
 
   const page = await browser.newPage();
