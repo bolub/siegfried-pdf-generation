@@ -39,8 +39,6 @@ export default async function handler(
   // try to send to supabase
   const supabasePath = `${userId}/${pdfName}_${Date.now()}`;
 
-  // const blob = await fetch(pdfPath).then((r) => r.blob());
-
   try {
     const resp = await FileStorageService.upload({
       bucket: process.env.SUPABASE_CONTRACTS_BUCKET as string,
@@ -51,7 +49,9 @@ export default async function handler(
       },
     });
 
-    return res.status(200).json({ message: 'ok', data: resp.path });
+    console.log(resp);
+
+    return res.status(200).json({ message: 'ok', data: resp });
   } catch (error: any) {
     console.log('Error uploading file: ' + error?.message);
 
