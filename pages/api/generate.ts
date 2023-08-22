@@ -2,7 +2,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
 import puppeteer from 'puppeteer-core';
-import path from 'path';
 import { FileStorageService } from '@/server/modules/file-storage-service/impl';
 import chromium from '@sparticuz/chromium';
 
@@ -32,9 +31,7 @@ export default async function handler(
   const page = await browser.newPage();
   await page.setContent(html);
 
-  const pdfPath = `${pdfName}.pdf`;
-
-  const pdfBuffer = await page.pdf({ path: pdfPath });
+  const pdfBuffer = await page.pdf();
   const pdfBlob = new Blob([pdfBuffer], { type: 'application/pdf' });
 
   await browser.close();
