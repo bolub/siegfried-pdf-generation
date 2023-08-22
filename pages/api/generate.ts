@@ -49,9 +49,7 @@ export default async function handler(
       },
     });
 
-    console.log(resp);
-
-    return res.status(200).json({ message: 'ok', data: resp });
+    return res.status(200).json({ message: 'ok', data: resp.path });
   } catch (error: any) {
     console.log('Error uploading file: ' + error?.message);
 
