@@ -34,7 +34,7 @@ export default async function handler(
   const page = await browser.newPage();
   await page.setContent(html);
 
-  const pdfPath = path.join(process.cwd(), 'public', `test.pdf`);
+  const pdfPath = path.join(process.cwd(), 'public', `testt.pdf`);
   await page.pdf({ path: pdfPath });
 
   await browser.close();
