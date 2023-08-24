@@ -33,8 +33,7 @@ export default async function handler(
   });
 
   const page = await browser.newPage();
-  // await page.setContent(html);
-  await page.goto('data:text/html;charset=UTF-8,' + html, {
+  await page.setContent(html, {
     waitUntil: 'networkidle0',
   });
   // await page.addStyleTag({
