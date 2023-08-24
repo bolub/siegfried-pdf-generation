@@ -23,7 +23,7 @@ export default async function handler(
   let { html, userId, pdfName } = RequestBodySchema.parse(req.body);
 
   const browser = await puppeteer.launch({
-    args: chromium.args,
+    args: [...chromium.args, '--font-render-hinting=none'],
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath(),
   });
