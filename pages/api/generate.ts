@@ -22,6 +22,10 @@ export default async function handler(
 ) {
   let { html, userId, pdfName } = RequestBodySchema.parse(req.body);
 
+  const root = process.cwd();
+
+  console.log(root);
+
   const browser = await puppeteer.launch({
     args: [...chromium.args, '--font-render-hinting=none'],
     defaultViewport: chromium.defaultViewport,
@@ -33,23 +37,6 @@ export default async function handler(
   // await page.addStyleTag({
   //   url: 'https://www.siegfried.dev/_next/static/css/a366c3eda10d4cfe.css',
   // });
-  await page.addStyleTag({
-    content: `
-      <style>
-        @font-face {
-  font-family: 'DM Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('DM Sans'), local('DM Sans'),
-    url(<https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,900&display=swap>)
-      format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC,
-    U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-}
-
-      </style>
-    `,
-  });
 
   const pdfBuffer = await page.pdf();
   const pdfBlob = new Blob([pdfBuffer], { type: 'application/pdf' });
