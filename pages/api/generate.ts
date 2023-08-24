@@ -22,10 +22,6 @@ export default async function handler(
 ) {
   let { html, userId, pdfName } = RequestBodySchema.parse(req.body);
 
-  const root = process.cwd();
-
-  console.log(root);
-
   const browser = await puppeteer.launch({
     args: [...chromium.args, '--font-render-hinting=none'],
     defaultViewport: chromium.defaultViewport,
