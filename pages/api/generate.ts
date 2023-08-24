@@ -30,12 +30,12 @@ export default async function handler(
 
   const page = await browser.newPage();
   await page.setContent(html);
-  await page.addStyleTag({
-    url: 'https://www.siegfried.dev/_next/static/css/a366c3eda10d4cfe.css',
-  });
   // await page.addStyleTag({
-  //   path: './../../styles/build.css',
+  //   url: 'https://www.siegfried.dev/_next/static/css/a366c3eda10d4cfe.css',
   // });
+  await page.addStyleTag({
+    path: './../../styles/build.css',
+  });
 
   const pdfBuffer = await page.pdf();
   const pdfBlob = new Blob([pdfBuffer], { type: 'application/pdf' });
