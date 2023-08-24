@@ -4,7 +4,6 @@ import { z } from 'zod';
 import puppeteer from 'puppeteer-core';
 import { FileStorageService } from '@/server/modules/file-storage-service/impl';
 import chromium from '@sparticuz/chromium';
-const testCss = require('@/styles/build.css');
 
 type Data = {
   message: string;
@@ -35,7 +34,21 @@ export default async function handler(
   //   url: 'https://www.siegfried.dev/_next/static/css/a366c3eda10d4cfe.css',
   // });
   await page.addStyleTag({
-    path: testCss,
+    content: `
+      <style>
+        @font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('DM Sans'), local('DM Sans'),
+    url(<https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,900&display=swap>)
+      format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC,
+    U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+      </style>
+    `,
   });
 
   const pdfBuffer = await page.pdf();
