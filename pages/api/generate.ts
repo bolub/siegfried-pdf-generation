@@ -4,6 +4,7 @@ import { z } from 'zod';
 import puppeteer from 'puppeteer-core';
 import { FileStorageService } from '@/server/modules/file-storage-service/impl';
 import chromium from '@sparticuz/chromium';
+const testCss = require('@/styles/build.css');
 
 type Data = {
   message: string;
@@ -34,7 +35,7 @@ export default async function handler(
   //   url: 'https://www.siegfried.dev/_next/static/css/a366c3eda10d4cfe.css',
   // });
   await page.addStyleTag({
-    path: './../../styles/build.css',
+    path: testCss,
   });
 
   const pdfBuffer = await page.pdf();
