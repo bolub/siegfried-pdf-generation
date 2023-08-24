@@ -33,7 +33,10 @@ export default async function handler(
   });
 
   const page = await browser.newPage();
-  await page.setContent(html);
+  // await page.setContent(html);
+  await page.goto('data:text/html;charset=UTF-8,' + html, {
+    waitUntil: 'networkidle0',
+  });
   await page.addStyleTag({
     url: 'https://www.siegfried.dev/_next/static/css/a366c3eda10d4cfe.css',
   });
