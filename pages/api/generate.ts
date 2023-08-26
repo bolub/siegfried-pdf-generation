@@ -32,6 +32,7 @@ export default async function handler(
   await page.setContent(html, {
     waitUntil: 'networkidle0',
   });
+  await page.screenshot();
   await page.addStyleTag({
     url: 'https://www.siegfried.dev/build.css',
   });
