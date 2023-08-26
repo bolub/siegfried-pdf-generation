@@ -33,7 +33,7 @@ export default async function handler(
     waitUntil: 'networkidle0',
   });
   await page.addStyleTag({
-    url: 'https://www.siegfried.dev/_next/static/css/29f89feae365d5b7.css',
+    url: 'https://www.siegfried.dev/build.css',
   });
 
   const pdfBuffer = await page.pdf();
